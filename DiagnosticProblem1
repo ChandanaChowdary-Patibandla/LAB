@@ -20,5 +20,6 @@ def compress_message(msg): #defining function
     return msg_output #return the compressed message after the iteration is finished
 
 msg = input().strip() # Input without white spaces
+
 msg_output = compress_message(msg) #print the compressed result
 print(msg_output)
