@@ -1,0 +1,24 @@
+def compress_message(msg): #defining function
+    msg_output = "" #initializing empty string
+    count = 1  
+ 
+    for i in range(1, len(msg)): # Loop iteration
+        if msg[i] == msg[i - 1]: #checking for the same character
+            count += 1 #increase count by +1 if character is same
+        else:
+            # Append the character to the compressed message
+            msg_output += msg[i - 1] #add previous character to the output message
+
+            if count > 1:
+                msg_output += str(count) #if count is greater than 1 give it to the output
+            count = 1 #reset count for next character
+    msg_output += msg[-1]
+   
+ if count > 1:
+        msg_output += str(count) #adding count to the character
+
+    return msg_output #return the compressed message after the iteration is finished
+
+msg = input().strip() # Input without white spaces
+msg_output = compress_message(msg) #print the compressed result
+print(msg_output)
