@@ -1,0 +1,26 @@
+import requests #import lib requests to fetch the webpage content
+from bs4 import BeautifulSoup #Used for parsing and navigating the HTML content of the webpage.
+
+
+faculty_directory_url = "https://cs.illinois.edu/about/people/all-faculty"
+
+response = requests.get(faculty_directory_url)
+
+if response.status_code == 200: #checking for webpage if it is retrieved without errors
+    soup = BeautifulSoup(response.content, "html.parser")
+
+    faculty_list = soup.find_all("div", class_="name") #looks for all div elements with the class name "name" in the parsed HTML content.
+    faculty_homepage_urls = []
+
+    for faculty in faculty_list:
+        homepage_url_element = faculty.find("a", href=True)
+        if homepage_url_element:
+            homepage_url = homepage_url_element['href']
+            faculty_homepage_urls.append(homepage_url)
+
+    with open("bio_urls.txt", "w") as bio_url_file: #write mode to save URLs
+        for url in faculty_homepage_urls:
+            bio_url_file.write(url + "\n")
+
+    print("Faculty homepage URLs saved to bio_urls.txt")
+
